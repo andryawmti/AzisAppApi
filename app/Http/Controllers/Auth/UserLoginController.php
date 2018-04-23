@@ -115,9 +115,7 @@ class UserLoginController extends Controller
 
     public function getUserForAndroid($user){
         $birth_date = $user->birth_date;
-        $pregnancy_start = $user->pregnancy_start_at;
         $user->birth_date = date("Y-m-d", strtotime($birth_date));
-        $user->pregnancy_start_at = date("Y-m-d", strtotime($pregnancy_start));
         return $user;
     }
 }

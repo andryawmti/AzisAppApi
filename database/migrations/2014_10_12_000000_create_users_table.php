@@ -19,14 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50);
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('photo', 300);
+            $table->string('photo', 200);
             $table->dateTime('birth_date');
             $table->string('address');
-            $table->dateTime('pregnancy_start_at');
-            $table->string('blood_type', 25);
-            $table->string('weight', 10);
-            $table->string('height', 10);
             $table->rememberToken();
             $table->timestamps();
+            $table->string('api_token', 60);
         });
     }
 

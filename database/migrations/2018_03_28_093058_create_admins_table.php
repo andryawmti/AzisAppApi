@@ -19,10 +19,13 @@ class CreateAdminsTable extends Migration
             $table->string('last_name', 50);
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('photo', 300);
+            $table->string('photo', 200);
             $table->dateTime('birth_date');
             $table->string('address');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('api_token', 60);
         });
     }
 

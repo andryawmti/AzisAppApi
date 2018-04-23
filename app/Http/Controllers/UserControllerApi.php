@@ -119,9 +119,9 @@ class UserControllerApi extends Controller
             $save = $user->save();
 
             if ($save) {
-                if (isset($old_photo)) {
-                    unlink(url($old_photo));
-                }
+//                if (isset($old_photo)) {
+//                    unlink(url($old_photo));
+//                }
                 $error = false;
                 $message = "Photo profile successfully updated";
             } else {

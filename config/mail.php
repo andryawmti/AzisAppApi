@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'dadadasnoopdog.com'),
+    'host' => env('MAIL_HOST', 'srv21.niagahoster.co.id'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 465),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'support@dev2.dadadasnoopdog.com'),
-        'name' => env('MAIL_FROM_NAME', 'SmartNutri'),
+        'address' => env('MAIL_FROM_ADDRESS', 'azisapp@strike-noir.com'),
+        'name' => env('MAIL_FROM_NAME', 'AzisApp'),
     ],
 
     /*
@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'STARTTLS'),
+    'encryption' => env('MAIL_ENCRYPTION', 'SSL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME', 'support@dev2.dadadasnoopdog.com'),
+    'username' => env('MAIL_USERNAME', 'azisapp@strike-noir.com'),
 
-    'password' => env('MAIL_PASSWORD', 'smartnutri'),
+    'password' => env('MAIL_PASSWORD', 'azisapp'),
 
     /*
     |--------------------------------------------------------------------------

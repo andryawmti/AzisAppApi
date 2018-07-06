@@ -19,7 +19,7 @@ Route::group(['middleware'=>'auth:user-api'], function(){
     Route::post('/user/{id}/password', 'UserControllerApi@updatePassword');
     Route::post('/user/{id}/upload-photo', 'UserControllerApi@uploadPhoto');
     Route::get('/user/{id}/get-photo-profile', 'UserControllerApi@getPhotoProfileUrl');
-    Route::resource('destination', 'DestinationController');
+    Route::resource('destination', 'DestinationControllerApi');
 });
 
 Route::group(['middleware'=>'auth:admin-api'], function(){

@@ -22,7 +22,7 @@ class DestinationControllerApi extends Controller
     {
         $destinations = Destination::all();
         $resonse = array(
-            'destination_list' => $destination
+            'destination_list' => $destinations
         );
         return json_encode($response);
     }

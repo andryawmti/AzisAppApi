@@ -21,7 +21,10 @@ class DestinationControllerApi extends Controller
     public function index()
     {
         $destinations = Destination::all();
-        return json_encode($destinations);
+        $resonse = array(
+            'destination_list' => $destination
+        );
+        return json_encode($response);
     }
 
     /**

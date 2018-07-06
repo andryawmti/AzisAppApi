@@ -27,6 +27,8 @@ Route::prefix('user')->group(function (){
     Route::get('/', 'UserController@index')->name('dashboard');
 });
 
+Route::resource('destination', 'DestinationController');
+
 Route::prefix('admin')->group(function(){
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');

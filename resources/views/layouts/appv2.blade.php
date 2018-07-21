@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('centric/css/vendor.css') }}">
     <!-- App styles-->
     <link rel="stylesheet" href="{{ asset('centric/css/app.css') }}">
-    <script src="{{ asset('centric/ga.js') }}"></script>
+    {{--<script src="{{ asset('centric/ga.js') }}"></script>--}}
     @yield('page_css')
 </head>
 <body class="theme-1">
@@ -43,11 +43,11 @@
             @yield('main_content')
         </section>
         <!-- Page footer-->
-        <footer><span>{{ date('Y') }} &copy; Kebumen Spot.</span></footer>
+        <footer><span>{{ date('Y') }} &copy; Kebumen Spot.</span></footer>http://127.0.0.1:8000/centric/images/logo.svg
     </main>
 </div>
 <!-- Google Maps API-->
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA"></script>
+{{--<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA"></script>--}}
 <!-- Vendor script-->
 <script src="{{ asset('centric/js/vendor.js') }}"></script>
 <!-- App script-->

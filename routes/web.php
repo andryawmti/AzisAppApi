@@ -21,19 +21,18 @@ Route::post('/logout', 'Auth\AdminLoginController@adminLogout')->name('logout');
 
 /** Grouped routes */
 
-Route::prefix('user')->group(function (){
+Route::prefix('android-user')->group(function (){
     /** These are actually accessed by android */
-    Route::post('signup', 'UserController@signUp')->name('user.signup');
-    Route::post('reset-password', 'UserController@resetPassword')->name('user.reset-password');
+    Route::post('signup', 'AndroidUserController@signUp')->name('user.signup');
+    Route::post('reset-password', 'AndroidUserController@resetPassword')->name('user.reset-password');
     /*Route::get('login', 'Auth\UserLoginController@showLoginForm')->name('user.login');*/
     Route::post('login', 'Auth\UserLoginController@userLogin')->name('user.login.submit');
     Route::post('logout', 'Auth\UserLoginController@userLogout')->name('user.logout');
     /*Route::post('{id}/upload', 'UserController@uploadPhoto')->name('user.upload');
     Route::get('', 'UserController@index')->name('dashboard');*/
-
-    /** Only these part are accessed by web app */
-    Route::get('', 'UserController@index')->name('user');
 });
+
+Route::resource('user', 'UserController');
 
 Route::resource('destination', 'DestinationController');
 

@@ -2,102 +2,131 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ResetPassword;
+use App\Destination;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    /*public function __construct()
     {
-        $this->middleware('guest:user');
-    }
+        $this->middleware('auth:admin');
+    }*/
 
     /**
-     * Show user dashboard.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('dashboard');
+        $users = User::all();
+        return view('user.index')->with(['users' => $users]);
     }
 
-    public function resetPassword(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $email = $request->input('email');
-        $user = User::where('email', '=', $email)->first();
-        if ( isset($user) ) {
-            $newPassword = str_random(8);
-            $send = Mail::to($email)->send(new ResetPassword($newPassword));
-            if (Mail::failures()) {
-                return json_encode(array(
-                    "error" => true,
-                    "message" => "Email was not sent"
-                ));
-            }
-
-            $user->password = Hash::make($newPassword);
-            $user->save();
-
-            return json_encode(array(
-                "error" => false,
-                "message" => "Message has been sent"
-            ));
-        }
-
-        return json_encode(array(
-            "error" => true,
-            "message" => "Email not found"
-        ));
-
+        return view('user.create');
     }
 
-    public function getUserForAndroid($user){
-        $birth_date = $user->birth_date;
-        $pregnancy_start = $user->pregnancy_start_at;
-        $user->birth_date = date("Y-m-d", strtotime($birth_date));
-        $user->pregnancy_start_at = date("Y-m-d", strtotime($pregnancy_start));
-        return $user;
-    }
-
-    public function signUp(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $user = new User();
-        $user->first_name = $request->input("first_name");
-        $user->last_name = $request->input("last_name");
-        $user->email = $request->input("email");
-        $user->password = Hash::make($request->input("password"));
-
-        try{
-            $save = $user->save();
-            if ($save) {
-                return response()->json(array(
-                    'error' => false,
-                    'message'=> 'You signed up successfully',
-                ));
-            }else{
-                return response()->json(array(
-                    'error' => true,
-                    'message'=> 'Sign up failed',
-                ));
-            }
-        }catch(\Exception $e){
-            return response()->json(array(
-                'error' => true,
-                'message'=> $e->getMessage(),
-            ));
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password1'));
+        $user->birth_date = $request->input('birth_date');
+        $user->address = $request->input('address');
+        $user->created_at = date('Y-m-d H:i:s');
+        $user->updated_at = NULL;
+        if ($request->hasFile('photo')) {
+            $path = Storage::putFile('public/images/user', $request->file('photo'));
+            $url = Storage::url($path);
+            $user->photo = $url;
+            $user->photo_mime = $request->file('photo')->getClientMimeType();
         }
+        $save = $user->save();
 
+        return redirect()->route('destination.create');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('user.edit')->with(['user' => $user]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->birth_date = $request->input('birth_date');
+        $user->address = $request->input('address');
+        $user->updated_at = date('Y-m-d H:i:s');
+        if ($request->hasFile('photo')) {
+            $path = Storage::putFile('public/images/user', $request->file('photo'));
+            $url = Storage::url($path);
+            $user->photo = $url;
+            $user->photo_mime = $request->file('photo')->getClientMimeType();
+        }
+
+        $save = $user->save();
+
+        return redirect()->route('user.edit', ['user' => $user->id]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('user.index');
+    }
 }

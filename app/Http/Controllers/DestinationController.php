@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Destination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DestinationController extends Controller
 {
@@ -21,7 +22,7 @@ class DestinationController extends Controller
     public function index()
     {
         $destinations = Destination::all();
-        return json_encode($destinations);
+        return view('destination.index')->with(['destinations' => $destinations]);
     }
 
     /**
@@ -31,7 +32,7 @@ class DestinationController extends Controller
      */
     public function create()
     {
-        //
+        return view('destination.create');
     }
 
     /**
@@ -42,7 +43,20 @@ class DestinationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $destination = new Destination();
+        $destination->title = $request->input('title');
+        $destination->latitude = $request->input('latitude');
+        $destination->longitude = $request->input('longitude');
+        $destination->description = $request->input('description');
+        if ($request->hasFile('picture')) {
+            $path = Storage::putFile('public/images/destination', $request->file('picture'));
+            $url = Storage::url($path);
+            $destination->picture = $url;
+        }
+
+        $save = $destination->save();
+
+        return redirect()->route('destination.create');
     }
 
     /**
@@ -64,7 +78,8 @@ class DestinationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $destination = Destination::find($id);
+        return view('destination.edit')->with(['destination' => $destination]);
     }
 
     /**
@@ -76,7 +91,20 @@ class DestinationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $destination = Destination::find($id);
+        $destination->title = $request->input('title');
+        $destination->latitude = $request->input('latitude');
+        $destination->longitude = $request->input('longitude');
+        $destination->description = $request->input('description');
+        if ($request->hasFile('picture')) {
+            $path = Storage::putFile('public/images/destination', $request->file('picture'));
+            $url = Storage::url($path);
+            $destination->picture = $url;
+        }
+
+        $save = $destination->save();
+
+        return redirect()->route('destination.edit', ['destination' => $destination->id]);
     }
 
     /**

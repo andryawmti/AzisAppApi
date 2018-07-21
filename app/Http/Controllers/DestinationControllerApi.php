@@ -34,18 +34,35 @@ class DestinationControllerApi extends Controller
         $favourite = new Favourite();
         $favourite->destination_id = $request->input('destination_id');
         $favourite->user_id = $request->input('user_id');
-        $favourite->created_at = date('Y-m-d H:i:s');
-        $favourite->updated_at = NULL;
-
-        $save = $favourite->save();
+public function addToFavourite(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $desId = $request->input('destination_id');
+        $is_favourited = 1;
+        $message = "";
+        if ($this->isFavourited($userId, $desId)) {
+            $result = Favourite::where([['user_id', $userId],['destination_id', $desId]])->delete();
+            $is_favourited = 0;
+            $message = "Removed from favourite";
+        } else {
+            $favourite = new Favourite();
+            $favourite->destination_id = $request->input('destination_id');
+            $favourite->user_id = $request->input('user_id');
+            $favourite->created_at = date('Y-m-d H:i:s');
+            $favourite->updated_at = NULL;
+            $result = $favourite->save();
+            $is_favourited = 1;
+            $message = "Added to favourite";
+        }
 
         return response()->json(array(
             'error' => false,
-            'message'=> 'Added to favourite',
+            'message' => $message,
+            'is_favourited' => $is_favourited
         ));
     }
 
-    public function getFavourite($userId)
+    public function getFavourites($userId)
     {
         $favourites = Favourite::where('user_id', $userId)->get();
         return response()->json(
@@ -53,6 +70,12 @@ class DestinationControllerApi extends Controller
                 'favourites' => $favourites
             )
         );
+    }
+
+    public function isFavourited($userId, $desId)
+    {
+        $count = Favourite::where([['user_id', $userId],['destination_id', $desId]])->count();
+        return $count;
     }
 
     public function getDestination($userId)

@@ -59,7 +59,11 @@ class DestinationControllerApi extends Controller
     {
         $drepo = new Destination();
         $destinations = $drepo->getDestinationWithFavouriteStatus($userId);
-        return response()->json($destinations);
+        return response()->json(
+            array(
+                'destination_list' => $destinations
+            )
+        );
     }
 
     /**

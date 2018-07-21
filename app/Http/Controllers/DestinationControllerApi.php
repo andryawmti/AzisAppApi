@@ -31,11 +31,6 @@ class DestinationControllerApi extends Controller
 
     public function addToFavourite(Request $request)
     {
-        $favourite = new Favourite();
-        $favourite->destination_id = $request->input('destination_id');
-        $favourite->user_id = $request->input('user_id');
-public function addToFavourite(Request $request)
-    {
         $userId = $request->input('user_id');
         $desId = $request->input('destination_id');
         $is_favourited = 1;

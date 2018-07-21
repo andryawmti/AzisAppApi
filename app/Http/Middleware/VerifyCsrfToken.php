@@ -12,9 +12,9 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        '/user/login',
-        '/user/logout',
-        '/user/signup',
-        '/user/reset-password',
+        '/android-user/login',
+        '/android-user/logout',
+        '/android-user/signup',
+        '/android-user/reset-password',
     ];
 }

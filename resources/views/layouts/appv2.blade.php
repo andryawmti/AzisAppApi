@@ -43,7 +43,7 @@
             @yield('main_content')
         </section>
         <!-- Page footer-->
-        <footer><span>{{ date('Y') }} &copy; Kebumen Spot.</span></footer>http://127.0.0.1:8000/centric/images/logo.svg
+        <footer><span>{{ date('Y') }} &copy; Kebumen Spot.</span></footer>
     </main>
 </div>
 <!-- Google Maps API-->

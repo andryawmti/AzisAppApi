@@ -20,13 +20,13 @@ Route::group(['middleware'=>'auth:user-api'], function(){
     Route::post('/user/{id}/upload-photo', 'UserControllerApi@uploadPhoto');
     Route::get('/user/{id}/get-photo-profile', 'UserControllerApi@getPhotoProfileUrl');
     Route::resource('destination', 'DestinationController');
+    Route::prefix('destination')->group(function (){
+        Route::get('get-favourite/{userId}', 'DestinationControllerApi@getFavourite')->name('getFavourite');
+        Route::post('add-to-favourite', 'DestinationControllerApi@addToFavourite')->name('addToFavourite');
+        Route::get('get-destination/{userId}', 'DestinationControllerApi@getDestination')->name('getDestination');
+    });
 });
 
 Route::group(['middleware'=>'auth:admin-api'], function(){
     Route::get('/users', 'UserController@getUsers');
-});
-
-Route::prefix('destination')->group(function (){
-    Route::get('get-favourite/{userId}', 'DestinationControllerApi@getFavourite')->name('getFavourite');
-    Route::post('add-to-favourite', 'DestinationControllerApi@addToFavourite')->name('addToFavourite');
 });

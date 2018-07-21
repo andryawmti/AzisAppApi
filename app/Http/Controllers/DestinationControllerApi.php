@@ -52,6 +52,13 @@ class DestinationControllerApi extends Controller
         );
     }
 
+    public function getDestination($userId)
+    {
+        $drepo = new Destination();
+        $destinations = $drepo->getDestinationWithFavouriteStatus($userId);
+        return response()->json($destinations);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

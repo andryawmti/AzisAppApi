@@ -25,11 +25,8 @@ Route::prefix('android-user')->group(function (){
     /** These are actually accessed by android */
     Route::post('signup', 'AndroidUserController@signUp')->name('user.signup');
     Route::post('reset-password', 'AndroidUserController@resetPassword')->name('user.reset-password');
-    /*Route::get('login', 'Auth\UserLoginController@showLoginForm')->name('user.login');*/
     Route::post('login', 'Auth\UserLoginController@userLogin')->name('user.login.submit');
     Route::post('logout', 'Auth\UserLoginController@userLogout')->name('user.logout');
-    /*Route::post('{id}/upload', 'UserController@uploadPhoto')->name('user.upload');
-    Route::get('', 'UserController@index')->name('dashboard');*/
 });
 
 Route::resource('user', 'UserController');

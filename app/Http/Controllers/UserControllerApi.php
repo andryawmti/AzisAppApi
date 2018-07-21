@@ -74,7 +74,7 @@ class UserControllerApi extends Controller
     {
         $users = User::all();
         if (count($users) > 0) {
-            return response()->json($this->getUserForAndroid($user));
+            return response()->json($this->getUserForAndroid($users));
         }
 
         return response()->json(array(

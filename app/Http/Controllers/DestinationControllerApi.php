@@ -23,7 +23,10 @@ class DestinationControllerApi extends Controller
     public function index()
     {
         $destinations = Destination::all();
-        return json_encode($destinations);
+        $response = array(
+            'destination_list' => $destinations
+        );
+        return json_encode($response);
     }
 
     public function addToFavourite(Request $request)

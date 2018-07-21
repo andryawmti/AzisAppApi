@@ -8,6 +8,12 @@
             </a>
         </li>
         <li>
+            <a class="ripple" href="{{ route('contribution.index') }}">
+                <span class="nav-icon"><img class="invisible" data-svg-replace="{{ asset('centric/images/clipboard.svg') }}" alt="MenuItem"></span>
+                <span>Contribution</span>
+            </a>
+        </li>
+        <li>
             <a class="ripple" href="{{ route('destination.index') }}">
                 <span class="nav-icon"><img class="invisible" data-svg-replace="{{ asset('centric/images/planet.svg') }}" alt="MenuItem"></span>
                 <span>Destinations</span>
@@ -17,6 +23,12 @@
             <a class="ripple" href="{{ route('user.index') }}">
                 <span class="nav-icon"><img class="invisible" data-svg-replace="{{ asset('centric/images/person-stalker.svg') }}" alt="MenuItem"></span>
                 <span>User Management</span>
+            </a>
+        </li>
+        <li>
+            <a class="ripple" href="{{ route('admin.index') }}">
+                <span class="nav-icon"><img class="invisible" data-svg-replace="{{ asset('centric/images/person-stalker.svg') }}" alt="MenuItem"></span>
+                <span>Admin Management</span>
             </a>
         </li>
         {{--<li><a class="ripple" href="cards.html"><span class="float-right nav-label"></span><span class="nav-icon"><img class="invisible" data-svg-replace="images/radio-waves.svg" alt="MenuItem"></span><span>Cards</span></a></li>

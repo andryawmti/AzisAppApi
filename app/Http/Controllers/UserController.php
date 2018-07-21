@@ -62,7 +62,7 @@ class UserController extends Controller
         }
         $save = $user->save();
 
-        return redirect()->route('destination.create');
+        return redirect()->route('user.create');
     }
 
     /**

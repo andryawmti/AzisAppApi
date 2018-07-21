@@ -36,7 +36,7 @@ Route::resource('user', 'UserController');
 
 Route::resource('destination', 'DestinationController');
 
-Route::prefix('admin')->group(function(){
+Route::resource('admin', 'AdminController');
 
-});
+Route::resource('contribution', 'ContributionController');
 

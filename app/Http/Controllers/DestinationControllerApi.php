@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Destination;
+use App\Favourite;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Null_;
 
 class DestinationControllerApi extends Controller
 {
@@ -22,6 +24,32 @@ class DestinationControllerApi extends Controller
     {
         $destinations = Destination::all();
         return json_encode($destinations);
+    }
+
+    public function addToFavourite(Request $request)
+    {
+        $favourite = new Favourite();
+        $favourite->destination_id = $request->input('destination_id');
+        $favourite->user_id = $request->input('user_id');
+        $favourite->created_at = date('Y-m-d H:i:s');
+        $favourite->updated_at = NULL;
+
+        $save = $favourite->save();
+
+        return response()->json(array(
+            'error' => false,
+            'message'=> 'Added to favourite',
+        ));
+    }
+
+    public function getFavourite($userId)
+    {
+        $favourites = Favourite::where('user_id', $userId)->get();
+        return response()->json(
+            array(
+                'favourites' => $favourites
+            )
+        );
     }
 
     /**

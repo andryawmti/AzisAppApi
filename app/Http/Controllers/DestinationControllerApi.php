@@ -137,6 +137,17 @@ class DestinationControllerApi extends Controller
         ));
     }
 
+    public function getContributed($userId)
+    {
+        $drepo = new Destination();
+        $favourites = $drepo->getContributedDestination($userId);
+        return response()->json(
+            array(
+                'contribution_list' => $favourites
+            )
+        );
+    }
+
     /**
      * Show the form for creating a new resource.
      *

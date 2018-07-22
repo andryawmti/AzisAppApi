@@ -26,6 +26,7 @@ Route::group(['middleware'=>'auth:user-api'], function(){
         Route::get('get-destination/{userId}', 'DestinationControllerApi@getDestination')->name('getDestination');
         Route::post('upload-destination-picture/{desId}', 'DestinationControllerApi@uploadDestinationPicture');
         Route::post('add-contribution', 'DestinationControllerApi@addContribution');
+        Route::get('get-contribution/{userId}', 'DestinationControllerApi@getContributed');
     });
 });
 

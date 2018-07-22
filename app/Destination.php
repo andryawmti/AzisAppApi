@@ -17,4 +17,12 @@ class Destination extends Model
                                 ) as f ON d.id = f.destination_id");
         return $destination;
     }
+
+    public function getFavouriteDestination($userId)
+    {
+        $destination = DB::select("SELECT d.*, if (f.user_id, 1, 0) as favourite FROM destination as d
+                                   LEFT JOIN favourites as f ON d.id = f.destination_id
+                                   WHERE f.user_id = $userId");
+        return $destination;
+    }
 }

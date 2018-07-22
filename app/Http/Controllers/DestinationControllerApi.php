@@ -59,7 +59,8 @@ class DestinationControllerApi extends Controller
 
     public function getFavourite($userId)
     {
-        $favourites = Favourite::where('user_id', $userId)->get();
+        $drepo = new Destination();
+        $favourites = $drepo->getFavouriteDestination($userId);
         return response()->json(
             array(
                 'favourite_list' => $favourites

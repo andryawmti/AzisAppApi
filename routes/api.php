@@ -24,6 +24,8 @@ Route::group(['middleware'=>'auth:user-api'], function(){
         Route::get('get-favourite/{userId}', 'DestinationControllerApi@getFavourite')->name('getFavourite');
         Route::post('add-to-favourite', 'DestinationControllerApi@addToFavourite')->name('addToFavourite');
         Route::get('get-destination/{userId}', 'DestinationControllerApi@getDestination')->name('getDestination');
+        Route::post('upload-destination-picture/{desId}', 'DestinationControllerApi@uploadDestinationPicture');
+        Route::post('add-contribution', 'DestinationControllerApi@addContribution');
     });
 });
 

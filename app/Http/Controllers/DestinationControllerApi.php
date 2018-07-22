@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Destination;
 use App\Favourite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\Null_;
 
 class DestinationControllerApi extends Controller
@@ -83,6 +84,56 @@ class DestinationControllerApi extends Controller
                 'destination_list' => $destinations
             )
         );
+    }
+
+    public function addContribution(Request $request)
+    {
+        $destination = new Destination();
+        $destination->title = $request->input('title');
+        $destination->latitude = $request->input('latitude');
+        $destination->longitude = $request->input('longitude');
+        $destination->description = $request->input('description');
+        $destination->created_at = date("Y-m-d H:i:s");
+        $destination->updated_at = NULL;
+
+        $destination->save();
+
+        $favourite = new Favourite();
+        $favourite->user_id = $request->input('user_id');
+        $favourite->destination_id = $destination->id;
+        $favourite->created_at = date("Y-m-d H:i:s");
+        $favourite->updated_at = NULL;
+
+        $favourite->save();
+
+        $message = "Contribution Added";
+
+        return response()->json(array(
+            'error' => false,
+            'message' => $message,
+            'destination_id' => $destination->id
+        ));
+
+    }
+
+    public function uploadDestinationPicture(Request $request, $id)
+    {
+        $destination = Destination::find($id);
+
+        if ($request->hasFile('picture')) {
+            $path = Storage::putFile('public/images/destination', $request->file('picture'));
+            $url = Storage::url($path);
+            $destination->picture = $url;
+        }
+
+        $destination->save();
+
+        $message = "Contribution Spot added";
+
+        return response()->json(array(
+            'error' => false,
+            'message' => $message,
+        ));
     }
 
     /**

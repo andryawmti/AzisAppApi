@@ -28,8 +28,9 @@ class Destination extends Model
 
     public function getContributedDestination($userId)
     {
-        $destination = DB::select("SELECT d.* FROM destination as d
+        $destination = DB::select("SELECT d.*, c.user_id, u.first_name, u.last_name, c.is_approved FROM destination as d
                                    LEFT JOIN contributions as c ON d.id = c.destination_id
+                                   LEFT JOIN users as u ON c.user_id = u.id
                                    WHERE c.user_id = $userId");
         return $destination;
     }

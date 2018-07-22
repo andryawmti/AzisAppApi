@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contribution;
 use App\Destination;
 use App\Favourite;
 use Illuminate\Http\Request;
@@ -98,13 +99,13 @@ class DestinationControllerApi extends Controller
 
         $destination->save();
 
-        $favourite = new Favourite();
-        $favourite->user_id = $request->input('user_id');
-        $favourite->destination_id = $destination->id;
-        $favourite->created_at = date("Y-m-d H:i:s");
-        $favourite->updated_at = NULL;
+        $contribution = new Contribution();
+        $contribution->user_id = $request->input('user_id');
+        $contribution->destination_id = $destination->id;
+        $contribution->created_at = date("Y-m-d H:i:s");
+        $contribution->updated_at = NULL;
 
-        $favourite->save();
+        $contribution->save();
 
         $message = "Contribution Added";
 

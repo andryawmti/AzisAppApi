@@ -57,12 +57,12 @@ class DestinationControllerApi extends Controller
         ));
     }
 
-    public function getFavourites($userId)
+    public function getFavourite($userId)
     {
         $favourites = Favourite::where('user_id', $userId)->get();
         return response()->json(
             array(
-                'favourites' => $favourites
+                'favourite_list' => $favourites
             )
         );
     }

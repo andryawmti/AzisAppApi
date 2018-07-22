@@ -25,4 +25,12 @@ class Destination extends Model
                                    WHERE f.user_id = $userId");
         return $destination;
     }
+
+    public function getContributedDestination($userId)
+    {
+        $destination = DB::select("SELECT d.*,  FROM destination as d
+                                   LEFT JOIN contributions as c ON d.id = c.destination_id
+                                   WHERE c.user_id = $userId");
+        return $destination;
+    }
 }

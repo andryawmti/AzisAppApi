@@ -34,4 +34,5 @@ class Destination extends Model
                                    WHERE c.user_id = $userId");
         return $destination;
     }
+
 }

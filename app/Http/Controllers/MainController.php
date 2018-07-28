@@ -9,10 +9,10 @@ class MainController extends Controller
     /**
      * MainController constructor.
      */
-    /*public function __construct()
+    public function __construct()
     {
         $this->middleware('auth:admin');
-    }*/
+    }
 
     /**
      * Display a listing of the resource.

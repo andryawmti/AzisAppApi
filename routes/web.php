@@ -18,7 +18,8 @@ Route::get('/', 'MainController@index')->name('dashboard');
 Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\AdminLoginController@login')->name('login.submit');
 Route::post('/logout', 'Auth\AdminLoginController@adminLogout')->name('logout');
-
+Route::get('/profile', 'AdminController@profile')->name('profile');
+Route::put('/profile', 'AdminController@saveProfile')->name('profile.save');
 /** Grouped routes */
 
 Route::prefix('android-user')->group(function (){
@@ -36,4 +37,8 @@ Route::resource('destination', 'DestinationController');
 Route::resource('admin', 'AdminController');
 
 Route::resource('contribution', 'ContributionController');
+Route::prefix('contribution')->group(function () {
+    Route::put('approve/{contribution}', 'ContributionController@approve')->name('contribution.approve');
+    Route::put('disapprove/{contribution}', 'ContributionController@disapprove')->name('contribution.disapprove');
+});
 

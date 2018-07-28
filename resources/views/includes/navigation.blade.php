@@ -25,12 +25,14 @@
                 <span>User Management</span>
             </a>
         </li>
+        @if(Auth::user('admin')->id == 1)
         <li>
             <a class="ripple" href="{{ route('admin.index') }}">
                 <span class="nav-icon"><img class="invisible" data-svg-replace="{{ asset('centric/images/person-stalker.svg') }}" alt="MenuItem"></span>
                 <span>Admin Management</span>
             </a>
         </li>
+        @endif
         {{--<li><a class="ripple" href="cards.html"><span class="float-right nav-label"></span><span class="nav-icon"><img class="invisible" data-svg-replace="images/radio-waves.svg" alt="MenuItem"></span><span>Cards</span></a></li>
         <li><a class="ripple" href="#"><span class="float-right nav-caret"><em class="ion-ios-arrow-right"></em></span><span class="float-right nav-label"></span><span class="nav-icon"><img class="invisible" data-svg-replace="images/connection-bars.svg" alt="MenuItem"></span><span>Charts</span></a>
             <ul class="sidebar-subnav">

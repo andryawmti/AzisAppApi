@@ -101,7 +101,9 @@ class UserController extends Controller
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
+        if ($request->input('password1')) {
+            $user->password = Hash::make($request->input('password'));
+        }
         $user->birth_date = $request->input('birth_date');
         $user->address = $request->input('address');
         $user->updated_at = date('Y-m-d H:i:s');

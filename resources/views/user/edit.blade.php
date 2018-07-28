@@ -46,22 +46,25 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">New Password</label>
-                                    <div class="col-sm-6">
-                                        <input class="form-control" id="id-password" type="password" name="password1" required="">
+                            <a onclick="changePasswordToggle()" href="#">Change Password</a>
+                            <div style="display: none" id="password-form">
+                                <fieldset>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">New Password</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" id="id-password" type="password" name="password1">
+                                        </div>
                                     </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Confirm New Password</label>
-                                    <div class="col-sm-6">
-                                        <input class="form-control" type="password" name="confirm_match" required="">
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Confirm New Password</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" id="id-password-confirm" type="password" name="confirm_match">
+                                        </div>
                                     </div>
-                                </div>
-                            </fieldset>
+                                </fieldset>
+                            </div>
                             <fieldset>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Birth Date</label>
@@ -106,6 +109,19 @@
 
 @section('page_js')
     <script>
-
+        var toggle = false;
+        function changePasswordToggle() {
+            if (!toggle) {
+                $('#password-form').css('display','block');
+                $('#id-password').attr('required', true);
+                $('#id-password-confirm').attr('required', true);
+            } else {
+                $('#password-form').css('display','none');
+                $('#password-form').find('input').val("");
+                $('#id-password').attr('required', false);
+                $('#id-password-confirm').attr('required', false);
+            }
+            toggle = !toggle;
+        }
     </script>
 @endsection

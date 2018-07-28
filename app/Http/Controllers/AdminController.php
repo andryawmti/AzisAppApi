@@ -97,7 +97,9 @@ class AdminController extends Controller
         $admin->first_name = $request->input('first_name');
         $admin->last_name = $request->input('last_name');
         $admin->email = $request->input('email');
-        $admin->password = Hash::make($request->input('password1'));
+        if ($request->input('password') != "") {
+            $admin->password = Hash::make($request->input('password1'));
+        }
         $admin->birth_date = $request->input('birth_date');
         $admin->address = $request->input('address');
         $admin->created_at = date('Y-m-d H:i:s');

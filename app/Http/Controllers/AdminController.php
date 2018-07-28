@@ -9,13 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    /**
-     * AdminController constructor.
-     */
-    /*public function __construct()
+    public function __construct()
     {
         $this->middleware('auth:admin');
-    }*/
+    }
 
     /**
      * show admin dashboard
@@ -128,4 +125,33 @@ class AdminController extends Controller
         $admin->delete();
         return redirect()->route('admin.index');
     }
+
+    public function profile()
+    {
+        return view('admin.profile');
+    }
+
+    public function saveProfile(Request $request)
+    {
+        $admin = Admin::find($request->input('id'));
+        $admin->first_name = $request->input('first_name');
+        $admin->last_name = $request->input('last_name');
+        $admin->email = $request->input('email');
+        if ($request->input('password') != "") {
+            $admin->password = Hash::make($request->input('password1'));
+        }
+        $admin->birth_date =  date('Y-m-d', strtotime($request->input('birth_date')));
+        $admin->address = $request->input('address');
+        $admin->updated_at = date('Y-m-d H:i:s');
+        if ($request->hasFile('photo')) {
+            $path = Storage::putFile('public/images/admin', $request->file('photo'));
+            $url = Storage::url($path);
+            $admin->photo = $url;
+            $admin->photo_mime = $request->file('photo')->getClientMimeType();
+        }
+        $save = $admin->save();
+
+        return redirect()->route('profile', ['admin' => $admin->id]);
+    }
+
 }

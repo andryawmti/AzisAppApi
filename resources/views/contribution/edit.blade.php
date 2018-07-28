@@ -1,11 +1,11 @@
 @extends('layouts.appv2')
 
 @section('page_title')
-    Edit Destination
+    Edit Contribution
 @endsection
 
 @section('header_title')
-    Edit Destination
+    Edit Contribution
 @endsection
 
 @section('main_content')
@@ -16,7 +16,7 @@
                 <!-- START row-->
                 <div class="row">
                     <div class="col-lg-12">
-                        <form class="form-validate" action="{{ route('destination.update', ['destination' => $destination->id]) }}" method="POST" id="form-example" name="form.formValidate" novalidate="" enctype="multipart/form-data">
+                        <form class="form-validate" action="{{ route('contribution.update', ['contribution' => $destination->id]) }}" method="POST" id="form-example" name="form.formValidate" novalidate="" enctype="multipart/form-data">
                             <fieldset class="b0">
                                 <legend>Edit</legend>
                             </fieldset>
@@ -68,7 +68,7 @@
                             <hr>
                             <div class="text-center">
                                 <button class="btn btn-success" type="submit">Save</button>
-                                <a href="{{ route('destination.index') }}" class="btn btn-info">Back</a>
+                                <a href="{{ route('contribution.index') }}" class="btn btn-info">Back</a>
                                 <button class="btn btn-warning" type="button">Reset</button>
                             </div>
                             <!-- END panel-->

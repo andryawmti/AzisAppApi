@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Storage;
 class DestinationController extends Controller
 {
 
-    /*public function __construct()
+    public function __construct()
     {
         $this->middleware('auth:admin');
-    }*/
+    }
 
     /**
      * Display a listing of the resource.

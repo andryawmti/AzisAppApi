@@ -19,7 +19,7 @@ class AdminLoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.admin_login');
+        return view('auth.loginv2');
     }
 
     /**
@@ -43,7 +43,7 @@ class AdminLoginController extends Controller
         // attempt to log the user in
         if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
             // if successful, then redirect to their intended location
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(route('dashboard'));
         }
 
         // if unsuccessful, then redirect back to login with the form data
@@ -58,7 +58,7 @@ class AdminLoginController extends Controller
     public function adminLogout(Request $request)
     {
         Auth::guard('admin')->logout();
-        return redirect('/admin');
+        return redirect()->route('login');
     }
 
 

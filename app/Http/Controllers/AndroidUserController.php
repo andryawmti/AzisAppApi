@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ResetPassword;
+use App\Mail\ResetPasswordold;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +28,7 @@ class AndroidUserController extends Controller
         $user = User::where('email', '=', $email)->first();
         if ( isset($user) ) {
             $newPassword = str_random(8);
-            $send = Mail::to($email)->send(new ResetPassword($newPassword));
+            $send = Mail::to($email)->send(new ResetPasswordold($newPassword));
             if (Mail::failures()) {
                 return json_encode(array(
                     "error" => true,

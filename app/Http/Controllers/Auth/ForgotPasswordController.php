@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
+use App\Mail\ResetPasswordold;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +54,10 @@ class ForgotPasswordController extends Controller
         $email = $request->input('email');
         $token = str_random(64);
         $link = url('/password/reset').'/'.$token;
-
+        $user = User::where('email', $email)->first();
+        if (!$user instanceof User) {
+            $user = Admin::where('email', $email)->first();
+        }
         $resetRequset =  DB::table('password_resets')->where('email', '=', $email)->first();
         if (isset($resetRequset)) {
             DB::table('password_resets')->where('email', '=', $email)->delete();
@@ -61,7 +67,7 @@ class ForgotPasswordController extends Controller
             'email' => $email,
             'token' => $token,
         ]);
-        Mail::to($email)->send(new ResetPassword($link));
+        Mail::to($email)->send(new ResetPassword($link, $user));
 
         if (!Mail::failures()) {
             $response = Password::RESET_LINK_SENT;
@@ -76,5 +82,17 @@ class ForgotPasswordController extends Controller
         return $response == Password::RESET_LINK_SENT
             ? $this->sendResetLinkResponse($response)
             : $this->sendResetLinkFailedResponse($request, $response);
+    }
+
+    public function previewEmail()
+    {
+        $email = "andryavera@gmail.com";
+        $token = str_random(64);
+        $link = url('/password/reset').'/'.$token;
+        $user = User::where('email', $email)->first();
+        if (!$user instanceof User) {
+            $user = Admin::where('email', $email)->first();
+        }
+        return new ResetPassword($link, $user);
     }
 }

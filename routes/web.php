@@ -20,6 +20,7 @@ Route::post('/login', 'Auth\AdminLoginController@login')->name('login.submit');
 Route::post('/logout', 'Auth\AdminLoginController@adminLogout')->name('logout');
 Route::get('/profile', 'AdminController@profile')->name('profile');
 Route::put('/profile', 'AdminController@saveProfile')->name('profile.save');
+Route::get('/preview-email', 'Auth\ForgotPasswordController@previewEmail')->name('email.preview');
 /** Grouped routes */
 
 Route::prefix('android-user')->group(function (){

@@ -12,5 +12,5 @@
     <br><br>
 
     Regards,<br>
-    {{ config('app.name') }}
+    {!! config('app.name') !!}
 @endcomponent

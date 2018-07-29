@@ -11,15 +11,16 @@ class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
     protected  $newPassword;
+    protected $link;
 
     /**
      * Create a new message instance.
      *
-     * @param string $newPassword
+     * @return void
      */
-    public function __construct(string $password)
+    public function __construct(string $link)
     {
-        $this->newPassword = $password;
+        $this->link = $link;
     }
 
     /**
@@ -29,8 +30,8 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->subject("Reset Password")
-                    ->markdown('email.reset.password')
-                    ->with(array("newPassword" => $this->newPassword));
+        return $this->subject('Reset Password')
+            ->markdown('email.reset.password')
+            ->with(['link' => $this->link]);
     }
 }

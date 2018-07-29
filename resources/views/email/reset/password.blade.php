@@ -1,10 +1,16 @@
 @component('mail::message')
-# This is your new password
 
-Password: {{ $newPassword }}
+    <strong>Hello,</strong><br><br>
 
-Please ignore this email, if you never authorize the reset password request.
+    You are receiving this email because we received a password reset request for your account.
 
-Thanks,<br>
-{{ config('app.name') }}
+    @component('mail::button', ['url' => $link])
+        Resset Password
+    @endcomponent
+
+    If you did not request a password reset, no further action is required.
+    <br><br>
+
+    Regards,<br>
+    {{ config('app.name') }}
 @endcomponent

@@ -60,9 +60,19 @@ class UserController extends Controller
             $user->photo = $url;
             $user->photo_mime = $request->file('photo')->getClientMimeType();
         }
-        $save = $user->save();
 
-        return redirect()->route('user.create');
+        $error = "false";
+        $message = "User successfully saved";
+        $title = "Saved!";
+        try {
+            $user->save();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('user.create')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     /**
@@ -114,9 +124,18 @@ class UserController extends Controller
             $user->photo_mime = $request->file('photo')->getClientMimeType();
         }
 
-        $save = $user->save();
-
-        return redirect()->route('user.edit', ['user' => $user->id]);
+        $error = "false";
+        $message = "User successfully updated";
+        $title = "Updated!";
+        try {
+            $user->save();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('user.edit', ['user' => $user->id])
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     /**
@@ -128,7 +147,18 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->delete();
-        return redirect()->route('user.index');
+
+        $error = "false";
+        $message = "User successfully deleted";
+        $title = "Deleted!";
+        try {
+            $user->delete();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('user.index')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 }

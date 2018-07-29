@@ -54,9 +54,19 @@ class DestinationController extends Controller
             $destination->picture = $url;
         }
 
-        $save = $destination->save();
+        $error = "false";
+        $message = "Destination successfully saved";
+        $title = "Saved!";
+        try {
+            $destination->save();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Save Error";
+        }
 
-        return redirect()->route('destination.create');
+        return redirect()->route('destination.create')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     /**
@@ -102,9 +112,19 @@ class DestinationController extends Controller
             $destination->picture = $url;
         }
 
-        $save = $destination->save();
+        $message = "Destination successfully updated";
+        $error = "false";
+        $title = "Updated!";
+        try {
+            $destination->save();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error";
+        }
 
-        return redirect()->route('destination.edit', ['destination' => $destination->id]);
+        return redirect()->route('destination.edit', ['destination' => $destination->id])
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     /**
@@ -115,6 +135,19 @@ class DestinationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destination = Destination::find($id);
+        $error = "false";
+        $message = "Your data successfully deleted";
+        $title = "Deleted!";
+        try{
+            $destination->delete();
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            $title = "Error";
+        }
+
+        return redirect()->route('destination.index')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
+
     }
 }

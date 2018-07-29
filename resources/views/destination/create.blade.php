@@ -64,6 +64,7 @@
                             <hr>
                             <div class="text-center">
                                 <button class="btn btn-success" type="submit">Save</button>
+                                <a href="{{ route('destination.index') }}" class="btn btn-info">Back</a>
                                 <button class="btn btn-warning" type="button">Reset</button>
                             </div>
                             <!-- END panel-->

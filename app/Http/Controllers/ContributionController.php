@@ -89,9 +89,17 @@ class ContributionController extends Controller
             $destination->picture = $url;
         }
 
-        $save = $destination->save();
-
-        return redirect()->route('contribution.edit', ['contribution' => $destination->id]);
+        $error = "false";
+        $message = "Contribution successfully updated";
+        $title = "Updated!";
+        try {
+            $destination->save();
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('contribution.edit', ['destination' => $destination->id])
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     /**
@@ -104,9 +112,19 @@ class ContributionController extends Controller
     {
         $contribution = Contribution::find($id);
         $destination = Contribution::find($contribution->destination_id);
-        $destination->delete();
-        $contribution->delete();
-        return redirect()->route('contribution.index');
+
+        $error = "false";
+        $message = "Contribution successfully deleted";
+        $title = "Deleted!";
+        try {
+            $destination->delete();
+            $contribution->delete();
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('contribution.index')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     public function approve($id)
@@ -114,8 +132,17 @@ class ContributionController extends Controller
         $contribution = Contribution::find($id);
         $contribution->status = "approved";
         $contribution->updated_at = date("Y-m-d H:i:s");
-        $contribution->save();
-        return redirect()->route('contribution.index');
+        $error = "false";
+        $message = "Contribution successfully approved";
+        $title = "Aproved!";
+        try {
+            $contribution->save();
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('contribution.index')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     public function disapprove($id)
@@ -123,7 +150,16 @@ class ContributionController extends Controller
         $contribution = Contribution::find($id);
         $contribution->status = "disapproved";
         $contribution->updated_at = date("Y-m-d H:i:s");
-        $contribution->save();
-        return redirect()->route('contribution.index');
+        $error = "false";
+        $message = "Contribution successfully Disapproved";
+        $title = "Disapproved!";
+        try {
+            $contribution->save();
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('contribution.index')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 }

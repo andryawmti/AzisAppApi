@@ -16,4 +16,17 @@ class Contribution extends Model
                                    LEFT JOIN users as u ON c.user_id = u.id");
         return $destinations;
     }
+
+    public function getCountApprovedContribution()
+    {
+        $count = Contribution::where('status','approved')->count();
+        return $count;
+    }
+
+    public function getCountAllContribution()
+    {
+        $count = DB::select("SELECT count(id) as total FROM contributions");
+        $count = $count[0]->total;
+        return $count;
+    }
 }

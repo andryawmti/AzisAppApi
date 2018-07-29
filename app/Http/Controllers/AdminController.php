@@ -56,9 +56,19 @@ class AdminController extends Controller
             $admin->photo = $url;
             $admin->photo_mime = $request->file('photo')->getClientMimeType();
         }
-        $save = $admin->save();
 
-        return redirect()->route('admin.create');
+        $error = "false";
+        $message = "Admin successfully saved";
+        $title = "Saved!";
+        try {
+            $admin->save();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('admin.create')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     /**
@@ -110,9 +120,19 @@ class AdminController extends Controller
             $admin->photo = $url;
             $admin->photo_mime = $request->file('photo')->getClientMimeType();
         }
-        $save = $admin->save();
 
-        return redirect()->route('admin.edit', ['admin' => $admin->id]);
+        $error = "false";
+        $message = "Admin successfully updated";
+        $title = "Updated!";
+        try {
+            $admin->save();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('admin.edit', ['admin' => $admin->id])
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     /**
@@ -124,8 +144,18 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $admin = Admin::find($id);
-        $admin->delete();
-        return redirect()->route('admin.index');
+        $error = "false";
+        $message = "Admin successfully deleted";
+        $title = "Deleted!";
+        try {
+            $admin->delete();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('admin.index')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
     public function profile()
@@ -151,9 +181,19 @@ class AdminController extends Controller
             $admin->photo = $url;
             $admin->photo_mime = $request->file('photo')->getClientMimeType();
         }
-        $save = $admin->save();
 
-        return redirect()->route('profile', ['admin' => $admin->id]);
+        $error = "false";
+        $message = "Profile successfully updated";
+        $title = "Updated!";
+        try {
+            $admin->save();
+        } catch (\Exception $e) {
+            $error = "true";
+            $message = $e->getMessage();
+            $title = "Error!";
+        }
+        return redirect()->route('profile')
+            ->with(['error' => $error, 'title' => $title, 'message' => $message]);
     }
 
 }

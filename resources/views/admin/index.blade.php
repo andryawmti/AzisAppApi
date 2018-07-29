@@ -39,7 +39,13 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-md-4"><a href="{{ route('admin.edit', ['admin' => $a->id]) }}" class="btn btn-xs btn-info">Edit</a></div>
-                                        <div class="col-md-4"><a href="#" class="btn btn-xs btn-danger">Delete</a></div>
+                                        <div class="col-md-4">
+                                            <form id="delete_{{ $a->id }}" method="post" action="{{ route( 'admin.destroy', ['admin' => $a->id] ) }}">
+                                                @csrf
+                                                <input type="hidden" value="DELETE" name="_method">
+                                                <a href="#" id="{{ $a->id }}" onclick="deleteItem(this.id)" class="btn btn-xs btn-danger">Delete</a>
+                                            </form>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

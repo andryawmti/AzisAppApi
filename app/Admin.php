@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class Admin extends Authenticatable
 {
@@ -35,5 +36,12 @@ class Admin extends Authenticatable
         $this->save();
 
         return $this->api_token;
+    }
+
+    public function getCountAdmin()
+    {
+        $count = DB::select("SELECT COUNT(id) as total FROM admins");
+        $count = $count[0]->total;
+        return $count;
     }
 }

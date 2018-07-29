@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -38,5 +39,12 @@ class User extends Authenticatable
         $this->save();
 
         return $this->api_token;
+    }
+
+    public function getCountUser()
+    {
+        $count = DB::select("SELECT COUNT(id) as total FROM users");
+        $count = $count[0]->total;
+        return $count;
     }
 }

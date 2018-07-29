@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
+use App\Contribution;
+use App\Destination;
+use App\User;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -21,7 +25,26 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('dashboardv2');
+        $d_repo = new Destination();
+        $c_repo = new Contribution();
+        $u_repo = new User();
+        $a_repo = new Admin();
+
+        $lastAddedDestination = Destination::orderBy('id','desc')->limit('5')->get();
+        $lastUser = User::orderBy('id', 'desc')->limit('5')->get();
+
+        $params = [
+            'dtotal' => $d_repo->getCountDestinations(),
+            'ctotal' => $c_repo->getCountAllContribution(),
+            'utotal' => $u_repo->getCountUser(),
+            'atotal' => $a_repo->getCountAdmin(),
+            'lastdes' => $lastAddedDestination,
+            'lastuser' => $lastUser,
+        ];
+
+
+
+        return view('dashboardv2')->with(['params'=>(object)$params]);
     }
 
     /**

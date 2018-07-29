@@ -67,6 +67,17 @@
                                 </div>
                             </div>
                         </div>
+                        @if (old('message'))
+                            <div class="form-group row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <span class="alert alert-danger">
+                                        <strong>{{ old('message') }}</strong>
+                                    </span>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                        @endif
                     </div>
                     <button class="btn btn-primary btn-flat" type="submit">Login</button>
                 </form>

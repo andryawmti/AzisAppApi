@@ -46,8 +46,14 @@ class AdminLoginController extends Controller
             return redirect()->intended(route('dashboard'));
         }
 
+        $params = [
+            'email' => $request->input('email'),
+            'remember' => $request->input('remember'),
+            'message' => "You email or password is incorrect"
+        ];
+
         // if unsuccessful, then redirect back to login with the form data
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($params);
     }
 
     /**

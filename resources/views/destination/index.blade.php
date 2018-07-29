@@ -41,7 +41,13 @@ Destinations
                             <td>
                                 <div class="row">
                                     <div class="col-md-4"><a href="{{ route('destination.edit', ['destination' => $d->id]) }}" class="btn btn-xs btn-info">Edit</a></div>
-                                    <div class="col-md-4"><a href="#" class="btn btn-xs btn-danger">Delete</a></div>
+                                    <div class="col-md-4">
+                                        <form id="delete_{{ $d->id }}" method="post" action="{{ route( 'destination.destroy', ['destination' => $d->id] ) }}">
+                                            @csrf
+                                            <input type="hidden" value="DELETE" name="_method">
+                                            <a href="#" id="{{ $d->id }}" onclick="deleteItem(this.id)" class="btn btn-xs btn-danger">Delete</a>
+                                        </form>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

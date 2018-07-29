@@ -54,7 +54,11 @@
                                             {{ csrf_field() }}
                                             <button type="submit" style="margin-left: 5px;" class="btn btn-xs btn-warning">Disapprove</button>
                                         </form>
-                                        <a style="margin-left: 5px;" href="{{ route('contribution.destroy', ['contribution' => $c->id]) }}" class="btn btn-xs btn-danger">Delete</a>
+                                        <form id="delete_{{ $c->id }}" method="post" action="{{ route( 'contribution.destroy', ['contribution' => $c->id] ) }}">
+                                            @csrf
+                                            <input type="hidden" value="DELETE" name="_method">
+                                            <a style="margin-left: 5px;" href="#" id="{{ $c->id }}" onclick="deleteItem(this.id)" class="btn btn-xs btn-danger">Delete</a>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

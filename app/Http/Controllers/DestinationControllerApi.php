@@ -36,24 +36,36 @@ class DestinationControllerApi extends Controller
         $userId = $request->input('user_id');
         $desId = $request->input('destination_id');
         $is_favourited = 1;
-        $message = "";
+        $error = false;
         if ($this->isFavourited($userId, $desId)) {
-            $result = Favourite::where([['user_id', $userId],['destination_id', $desId]])->delete();
-            $is_favourited = 0;
-            $message = "Removed from favourite";
+
+            try {
+                Favourite::where([['user_id', $userId],['destination_id', $desId]])->delete();
+                $is_favourited = 0;
+                $message = "Removed from favourite";
+            } catch (\Exception $e) {
+                $error = true;
+                $message = $e->getMessage();
+            }
         } else {
             $favourite = new Favourite();
             $favourite->destination_id = $request->input('destination_id');
             $favourite->user_id = $request->input('user_id');
             $favourite->created_at = date('Y-m-d H:i:s');
             $favourite->updated_at = NULL;
-            $result = $favourite->save();
-            $is_favourited = 1;
-            $message = "Added to favourite";
+
+            try{
+                $favourite->save();
+                $is_favourited = 1;
+                $message = "Added to favourite";
+            } catch (\Exception $e) {
+                $error = true;
+                $message = $e->getMessage();
+            }
         }
 
         return response()->json(array(
-            'error' => false,
+            'error' => $error,
             'message' => $message,
             'is_favourited' => $is_favourited
         ));
@@ -89,6 +101,9 @@ class DestinationControllerApi extends Controller
 
     public function addContribution(Request $request)
     {
+        $message = "Contribution Added";
+        $error = false;
+
         $destination = new Destination();
         $destination->title = $request->input('title');
         $destination->latitude = $request->input('latitude');
@@ -97,7 +112,12 @@ class DestinationControllerApi extends Controller
         $destination->created_at = date("Y-m-d H:i:s");
         $destination->updated_at = NULL;
 
-        $destination->save();
+        try{
+            $destination->save();
+        } catch(\Exception $e) {
+            $error = true;
+            $message = $e->getMessage();
+        }
 
         $contribution = new Contribution();
         $contribution->user_id = $request->input('user_id');
@@ -105,12 +125,15 @@ class DestinationControllerApi extends Controller
         $contribution->created_at = date("Y-m-d H:i:s");
         $contribution->updated_at = NULL;
 
-        $contribution->save();
-
-        $message = "Contribution Added";
+        try{
+            $contribution->save();
+        } catch (\Exception $e) {
+            $error = true;
+            $message = $e->getMessage();
+        }
 
         return response()->json(array(
-            'error' => false,
+            'error' => $error,
             'message' => $message,
             'destination_id' => $destination->id
         ));
@@ -119,6 +142,9 @@ class DestinationControllerApi extends Controller
 
     public function uploadDestinationPicture(Request $request, $id)
     {
+        $error = false;
+        $message = "Contribution Spot added";
+
         $destination = Destination::find($id);
 
         if ($request->hasFile('picture')) {
@@ -127,12 +153,15 @@ class DestinationControllerApi extends Controller
             $destination->picture = $url;
         }
 
-        $destination->save();
-
-        $message = "Contribution Spot added";
+        try{
+            $destination->save();
+        } catch(\Exception $e) {
+            $error = true;
+            $message = $e->getMessage();
+        }
 
         return response()->json(array(
-            'error' => false,
+            'error' => $error,
             'message' => $message,
         ));
     }

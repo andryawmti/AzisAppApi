@@ -7,6 +7,9 @@
             <li><a class="menu-link menu-link-slide" id="offcanvas-toggler" href="#"><span><em></em></span></a></li>
         </ul>
         <h3 class="header-title">@yield('header_title')</h3>
+
+        <img style="margin-left: 250px;" src="{{ url('centric/images/visitindonesia2.png') }}" width="100" alt="Visit Indonesia">
+
         <ul class="float-right">
             {{--<li><a class="ripple" id="header-search" href="#"><em class="ion-ios-search-strong"></em></a></li>--}}
             <li><spane>Welcome {{ Auth::user('admin')->first_name }}</spane></li>

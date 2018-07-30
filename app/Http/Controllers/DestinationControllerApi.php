@@ -148,6 +148,32 @@ class DestinationControllerApi extends Controller
         );
     }
 
+    public function editContribution(Request $request, $id)
+    {
+        $destination = Destination::find($id);
+        $destination->title = $request->input('title');
+        $destination->latitude = $request->input('latitude');
+        $destination->longitude = $request->input('longitude');
+        $destination->description = $request->input('description');
+        $destination->updated_at = date("Y-m-d H:i:s");
+
+        $error = false;
+        $message = "Contribution Added";
+        try {
+            $destination->save();
+        } catch (\Exception $e) {
+            $error = true;
+            $message = $e->getMessage();
+        }
+
+        return response()->json(array(
+            'error' => $error,
+            'message' => $message,
+            'destination_id' => $destination->id
+        ));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

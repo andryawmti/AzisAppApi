@@ -63,6 +63,10 @@ class AndroidUserController extends Controller
     public function signUp(Request $request)
     {
         $user = new User();
+        $gmail_id = $request->input('gmail_id');
+        $fb_id = $request->input('fb_id');
+        $user->gmail_id = ($gmail_id)?$gmail_id:NULL;
+        $user->fb_id = ($fb_id)?$fb_id:NULL;
         $user->first_name = $request->input("first_name");
         $user->last_name = $request->input("last_name");
         $user->email = $request->input("email");

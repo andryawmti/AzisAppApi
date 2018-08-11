@@ -106,7 +106,7 @@ class UserControllerApi extends Controller
     public function uploadPhoto(Request $request, $id)
     {
         if ($request->hasFile("image")){
-            $path = Storage::putFile("public/images", $request->file("image"));
+            $path = Storage::putFile("public/images/user", $request->file("image"));
             $user = User::find($id);
             $file_url = Storage::url($path);
 

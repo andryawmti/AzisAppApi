@@ -62,6 +62,14 @@ class AndroidUserController extends Controller
 
     public function signUp(Request $request)
     {
+        $email = $request->input('email');
+        $userExist = User::where('email', $email)->first();
+        if ($userExist instanceof User) {
+            return response()->json(array(
+                'error' => false,
+                'message' => 'You are already SignUp'
+            ));
+        }
         $user = new User();
         $gmail_id = $request->input('gmail_id');
         $fb_id = $request->input('fb_id');
@@ -69,7 +77,7 @@ class AndroidUserController extends Controller
         $user->fb_id = ($fb_id)?$fb_id:NULL;
         $user->first_name = $request->input("first_name");
         $user->last_name = $request->input("last_name");
-        $user->email = $request->input("email");
+        $user->email = $email;
         $user->password = Hash::make($request->input("password"));
 
         try{

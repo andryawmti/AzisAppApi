@@ -19,8 +19,8 @@
         <div class="container-full">
             <div class="container container-xs">
                 <div class="text-center">
-                    <img class="mv-lg img-fluid thumb64" src="{{ asset('centric/images/logo.png') }}">
-                    <h4>Wisata Kebumen</h4>
+                    <img class="mv-lg img-fluid thumb64" style="min-width: 140px; min-height: 140px;" src="{{ asset('centric/images/logo_v2.png') }}">
+                    <h4 style="margin-top: 0px;">Wisata Kebumen</h4>
                 </div>
                 <form class="cardbox b0 form-validate" method="post" action="{{ route('login.submit') }}" name="loginForm" novalidate="">
                     {{--<div class="cardbox-offset pb0">

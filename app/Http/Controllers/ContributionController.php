@@ -111,8 +111,7 @@ class ContributionController extends Controller
     public function destroy($id)
     {
         $contribution = Contribution::find($id);
-        $destination = Contribution::find($contribution->destination_id);
-
+        $destination = Destination::find($contribution->destination_id);
         $error = "false";
         $message = "Contribution successfully deleted";
         $title = "Deleted!";

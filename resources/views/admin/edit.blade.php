@@ -77,7 +77,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Phone Number</label>
                                     <div class="col-sm-6">
-                                        <input class="form-control" type="number" name="phone_number" required="" placeholder="0812345678">
+                                        <input class="form-control" type="number" name="phone_number" value="{{ $admin->phone_number }}" required="" placeholder="0812345678">
                                     </div>
                                 </div>
                             </fieldset>

@@ -48,6 +48,7 @@ class AdminController extends Controller
         $admin->password = Hash::make($request->input('password1'));
         $admin->birth_date = $request->input('birth_date');
         $admin->address = $request->input('address');
+        $admin->phone_number = $request->input('phone_number');
         $admin->created_at = date('Y-m-d H:i:s');
         $admin->updated_at = NULL;
         if ($request->hasFile('photo')) {
@@ -112,6 +113,7 @@ class AdminController extends Controller
         }
         $admin->birth_date = $request->input('birth_date');
         $admin->address = $request->input('address');
+        $admin->phone_number = $request->input('phone_number');
         $admin->created_at = date('Y-m-d H:i:s');
         $admin->updated_at = NULL;
         if ($request->hasFile('photo')) {

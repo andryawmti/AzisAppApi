@@ -11,10 +11,11 @@ class Destination extends Model
 
     public function getDestinationWithFavouriteStatus($userId)
     {
-        $destination = DB::select("SELECT d.*, if (f.user_id, 1, 0) as favourite FROM destination as d
+        $destination = DB::select("SELECT d.*, if (f.user_id, 1, 0) as favourite, c.status FROM destination as d
                                 LEFT JOIN (
                                     SELECT * FROM favourites WHERE user_id = $userId
-                                ) as f ON d.id = f.destination_id");
+                                ) as f ON d.id = f.destination_id
+                                LEFT JOIN contributions as c ON d.id = c.destination_id");
         return $destination;
     }
 

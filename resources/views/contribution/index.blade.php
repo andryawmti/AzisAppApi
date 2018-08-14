@@ -1,11 +1,11 @@
 @extends('layouts.appv2')
 
 @section('page_title')
-    Destinations
+    Contributoins
 @endsection
 
 @section('header_title')
-    Destinations
+    Contributions
 @endsection
 
 @section('main_content')
@@ -28,7 +28,7 @@
                         <tbody>
                         @foreach( $contributions as $c )
                             <tr class="gradeX">
-                                <td>{{ $c->id }}</td>
+                                <td>{{ $c->contribution_id }}</td>
                                 <td>{{ $c->title }}</td>
                                 <td>{{ date('d-m-Y', strtotime($c->created_at)) }}</td>
                                 <td>{{ $c->first_name }} {{ $c->last_name }}</td>
@@ -54,10 +54,10 @@
                                             {{ csrf_field() }}
                                             <button type="submit" style="margin-left: 5px;" class="btn btn-xs btn-warning">Disapprove</button>
                                         </form>
-                                        <form id="delete_{{ $c->id }}" method="post" action="{{ route( 'contribution.destroy', ['contribution' => $c->id] ) }}">
+                                        <form id="delete_{{ $c->contribution_id }}" method="post" action="{{ route( 'contribution.destroy', ['contribution' => $c->contribution_id] ) }}">
                                             @csrf
                                             <input type="hidden" value="DELETE" name="_method">
-                                            <a style="margin-left: 5px;" href="#" id="{{ $c->id }}" onclick="deleteItem(this.id)" class="btn btn-xs btn-danger">Delete</a>
+                                            <a style="margin-left: 5px;" href="#" id="{{ $c->contribution_id }}" onclick="deleteItem(this.id)" class="btn btn-xs btn-danger">Delete</a>
                                         </form>
                                     </div>
                                 </td>
